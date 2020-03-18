@@ -2,12 +2,19 @@ create table CUSM (
     fullName varchar2(32) not null,
     address varchar2 (128) not null,
     custid number primary key,
-    age int not null,
+    age number,
     sex varchar2(1) CHECK (sex = 'm' or sex ='f'),
     phone varchar2(15) not null,
     email varchar2(64) not null,
     status varchar2(10) CHECK (status = 'Active' or status = 'Dormant' or status = 'Deceased')
+)
+PARTITION BY RANGE (age) (
+    PARTITION young VALUES LESS THAN (18),
+    PARTITION adult VALUES LESS THAN (60),
+    PARTITION elder VALUES LESS THAN (120)
 );
+
+
 /
 create sequence users_id start with 1;
 
@@ -26,21 +33,51 @@ create table accounts (
     accountUser number,
     interestRate number,
     openingDate date,
-    status varchar2(10) CHECK (Status = 'Active' or status = or status ='Closed'),
+    status varchar2(10) CHECK (status = 'Active' or status = 'Hold' or status =  'Closed'),
     balance number,
-    accountType varchar2(3) CHECK (accountType = or accountType =NOD),
-    CONSTRAINT fk acconuntUser
+    accountType varchar2(3) CHECK (accountType = 'OD' or accountType = 'NOD'),
+    CONSTRAINT fk_acconuntUser
     FOREIGN KEY (accountUser) REFERENCES CUSM(custid)
+    
+    CONSTRAINT fk_accountNumber
+    FOREIGN KEY (accountNumber) REFERENCES accounts)
+partition by reference (fk_accountNumber)
 );
 /
 create sequence account_numbers start with 1;
 
-create or replace trigger account_numbers increment
+create or replace trigger account_numbers_increment
     before insert or update on accounts
     for each row
 begin
-    if inserting and new.accountNumber is null then
+    if inserting and :new.accountNumber is null then
     :new.accountNumber := account_numbers.nextval;
     end if;
 end;
 /
+
+create table childAccounts (
+    accountNumber number primary key,
+    
+    CONSTRAINT child_accounts_fk FOREIGN KEY (accountNumber) REFERENCES accounts)
+PARTITION BY REFERENCE (child_accounts_fk);
+
+ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-DD-MM';
+
+INSERT INTO CUSM (fullName, address, age, sex, phone, email, status)
+VALUES ('Joao Cruz', 'Ruskonlahdenkatu 13-15', 20, 'm', '041 727 9016', 'joao.cruz@student.lut.fi', 'Active');
+
+INSERT INTO CUSM (fullName, address, age, sex, phone, email, status)
+VALUES ('John Doe', 'City Center', 46, 'm', '041 727 6543', 'john.doe@gmail.com', 'Active');
+
+INSERT INTO CUSM (fullName, address, age, sex, phone, email, status)
+VALUES ('Sarah Smith', 'Karankokatu', 92, 'f', '041 727 1344', 'sarah.smith@gmail.com', 'Active');
+
+INSERT INTO accounts(accountUser, interestRate, openingDate, status, balance, accountType)
+VALUES (1, 5, '2015-05-01', 'Active', 500, 'NOD');
+
+INSERT INTO accounts(accountUser, interestRate, openingDate, status, balance, accountType)
+VALUES (2, 10, '2002-01-0', 'Active', 5200, 'OD');
+
+INSERT INTO accounts(accountUser, interestRate, openingDate, status, balance, accountType)
+VALUES (3, 2, '1992-02-15', 'Active', 23000, 'NOD');
