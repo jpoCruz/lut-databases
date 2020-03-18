@@ -1,0 +1,46 @@
+create table CUSM (
+    fullName varchar2(32) not null,
+    address varchar2 (128) not null,
+    custid number primary key,
+    age int not null,
+    sex varchar2(1) CHECK (sex = 'm' or sex ='f'),
+    phone varchar2(15) not null,
+    email varchar2(64) not null,
+    status varchar2(10) CHECK (status = 'Active' or status = 'Dormant' or status = 'Deceased')
+);
+/
+create sequence users_id start with 1;
+
+create or replace trigger users_id_increment
+    before insert or update on CUSM
+    for each row
+begin
+    if inserting and :new.custid is null then
+    :new.custid := users_id.nextval;
+    end if;
+end;
+/
+
+create table accounts (
+    accountNumber number constraint accounts_pk primary key,
+    accountUser number,
+    interestRate number,
+    openingDate date,
+    status varchar2(10) CHECK (Status = 'Active' or status = or status ='Closed'),
+    balance number,
+    accountType varchar2(3) CHECK (accountType = or accountType =NOD),
+    CONSTRAINT fk acconuntUser
+    FOREIGN KEY (accountUser) REFERENCES CUSM(custid)
+);
+/
+create sequence account_numbers start with 1;
+
+create or replace trigger account_numbers increment
+    before insert or update on accounts
+    for each row
+begin
+    if inserting and new.accountNumber is null then
+    :new.accountNumber := account_numbers.nextval;
+    end if;
+end;
+/
