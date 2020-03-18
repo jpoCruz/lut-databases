@@ -36,13 +36,12 @@ create table accounts (
     status varchar2(10) CHECK (status = 'Active' or status = 'Hold' or status =  'Closed'),
     balance number,
     accountType varchar2(3) CHECK (accountType = 'OD' or accountType = 'NOD'),
-    CONSTRAINT fk_acconuntUser
+    CONSTRAINT fk_accountUser
     FOREIGN KEY (accountUser) REFERENCES CUSM(custid)
-    
-    CONSTRAINT fk_accountNumber
-    FOREIGN KEY (accountNumber) REFERENCES accounts)
-partition by reference (fk_accountNumber)
 );
+
+
+
 /
 create sequence account_numbers start with 1;
 
@@ -56,11 +55,6 @@ begin
 end;
 /
 
-create table childAccounts (
-    accountNumber number primary key,
-    
-    CONSTRAINT child_accounts_fk FOREIGN KEY (accountNumber) REFERENCES accounts)
-PARTITION BY REFERENCE (child_accounts_fk);
 
 ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-DD-MM';
 
