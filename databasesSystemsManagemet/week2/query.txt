@@ -14,6 +14,15 @@ PARTITION BY RANGE (age) (
     PARTITION elder VALUES LESS THAN (MAXVALUE)
 );
 
+CREATE VIEW young AS
+SELECT * from CUSM where (age < 19) ORDER BY age;
+
+CREATE VIEW adult AS
+SELECT * from CUSM where (age >= 19) and (age < 60) ORDER BY age;
+
+CREATE VIEW elder AS
+SELECT * from CUSM where (age >= 60) ORDER BY age;
+
 
 /
 create sequence users_id start with 1;
