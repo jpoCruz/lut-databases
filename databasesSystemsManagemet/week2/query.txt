@@ -11,7 +11,7 @@ create table CUSM (
 PARTITION BY RANGE (age) (
     PARTITION young VALUES LESS THAN (18),
     PARTITION adult VALUES LESS THAN (60),
-    PARTITION elder VALUES LESS THAN (120)
+    PARTITION elder VALUES LESS THAN (MAXVALUE)
 );
 
 
@@ -30,7 +30,7 @@ end;
 
 create table accounts (
     accountNumber number constraint accounts_pk primary key,
-    accountUser number,
+    accountUser number not null,
     interestRate number,
     openingDate date,
     status varchar2(10) CHECK (status = 'Active' or status = 'Hold' or status =  'Closed'),
@@ -38,9 +38,8 @@ create table accounts (
     accountType varchar2(3) CHECK (accountType = 'OD' or accountType = 'NOD'),
     CONSTRAINT fk_accountUser
     FOREIGN KEY (accountUser) REFERENCES CUSM(custid)
-);
-
-
+)
+PARTITION BY REFERENCE (fk_accountUser);
 
 /
 create sequence account_numbers start with 1;
@@ -71,7 +70,7 @@ INSERT INTO accounts(accountUser, interestRate, openingDate, status, balance, ac
 VALUES (1, 5, '2015-05-01', 'Active', 500, 'NOD');
 
 INSERT INTO accounts(accountUser, interestRate, openingDate, status, balance, accountType)
-VALUES (2, 10, '2002-01-0', 'Active', 5200, 'OD');
+VALUES (2, 10, '2002-01-04', 'Active', 5200, 'OD');
 
 INSERT INTO accounts(accountUser, interestRate, openingDate, status, balance, accountType)
-VALUES (3, 2, '1992-02-15', 'Active', 23000, 'NOD');
+VALUES (3, 2, '1992-15-10', 'Active', 23000, 'NOD');
