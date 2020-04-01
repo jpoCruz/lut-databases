@@ -1,0 +1,14 @@
+begin
+    dbms_errlog.create_error_log(dml_table_name => 'CUSM');
+    
+    dbms_errlog.create_error_log(dml_table_name => 'accounts');
+    
+    dbms_errlog.create_error_log(dml_table_name => 'TXNM_table');
+end;
+
+INSERT INTO CUSM 
+SELECT * 
+FROM CUSM LOG errors 
+INTO err$_CUSM reject LIMIT unlimited;
+
+SELECT * from ERR$_CUSM
