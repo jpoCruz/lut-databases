@@ -1,0 +1,9 @@
+ALTER TABLE CUSM 
+ADD SignOnFlag varchar(1) CHECK (SignOnFlag = 'Y' or SignOnFlag = 'N');
+
+ALTER TABLE CUSM 
+ADD SignOnDate date;
+
+ALTER TABLE CUSM 
+ADD passwrd varchar2(10);
+
