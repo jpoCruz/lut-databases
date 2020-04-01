@@ -1,0 +1,27 @@
+CREATE TABLE log (
+    logDate DATE,
+    logType VARCHAR (6),
+    logId NUMBER);
+
+CREATE OR REPLACE TRIGGER accounts_access
+    BEFORE INSERT OR UPDATE OR DELETE
+    ON accounts
+    FOR EACH ROW
+DECLARE
+    v_type log.logType%type;
+    v_custid NUMBER;
+BEGIN
+    IF DELETING THEN
+    v_type := 'Delete';
+    v_custid := :OLD.custid;
+    ELSIF UPDATING THEN
+    v_type := 'Update';
+    v_custid := :OLD.custid;
+    ELSIF INSERTING THEN
+    v_type := 'Insert';
+    v_custid := :NEW.custid;
+    END IF;
+    
+    INSERT INTO log (logDate, logType, logId)
+        VALUES(SYSDATE, v_type, v_custid);
+END;
