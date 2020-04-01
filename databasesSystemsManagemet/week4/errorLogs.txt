@@ -11,4 +11,16 @@ SELECT *
 FROM CUSM LOG errors 
 INTO err$_CUSM reject LIMIT unlimited;
 
+INSERT INTO accounts 
+SELECT * 
+FROM accounts LOG errors 
+INTO err$_accounts reject LIMIT unlimited;
+
+INSERT INTO TXNM_table
+SELECT * 
+FROM TXNM_table LOG errors 
+INTO err$_TXNM_table reject LIMIT unlimited;
+
 SELECT * from ERR$_CUSM
+SELECT * from ERR$_accounts
+SELECT * from ERR$_TXNM_table
