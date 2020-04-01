@@ -5,5 +5,5 @@ ALTER TABLE CUSM
 ADD SignOnDate date;
 
 ALTER TABLE CUSM 
-ADD passwrd varchar2(10);
+ADD passwrd varchar(10);
 
