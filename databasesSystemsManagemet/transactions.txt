@@ -7,7 +7,8 @@ create table transactions(
   amount number,
   CONSTRAINT fk_user
   FOREIGN KEY (trUser) REFERENCES CUSM(custid)
-CONSTRAINT fk_account FOREIGN KEY (trAccount) REFERENCES accounts(accownNumber)
+  CONSTRAINT fk_account
+  FOREIGN KEY (trAccount) REFERENCES accounts(accountNumber)
 );
 /
 create sequence transactions_identifier start with 1;
