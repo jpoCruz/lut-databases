@@ -7,3 +7,7 @@ ADD SignOnDate date;
 ALTER TABLE CUSM 
 ADD passwrd varchar(10);
 
+UPDATE CUSM SET passwrd = 'apple123' WHERE custid = 1;
+UPDATE CUSM SET passwrd = 'qwerty' WHERE custid = 2;
+UPDATE CUSM SET passwrd = 'password1' WHERE custid = 3;
+
