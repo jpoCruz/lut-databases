@@ -9,12 +9,19 @@ CREATE OR REPLACE TRIGGER accounts_access
     FOR EACH ROW
 DECLARE
     log_type accounts_log.logType%type;
-    custid NUMBER;
+    log_custid NUMBER;
 BEGIN
     IF DELETING THEN
     log_type := 'Delete';
+    log_custid := old.custid;
     ELSIF UPDATING THEN
     log_type := 'Update';
+    log_custid := old.custid;
     ELSIF INSERTING THEN
     log_type := 'Insert';
+    log_custid := new.custid;
     END IF;
+    
+    INSERT INTO accounts_log (logDate, logType, logId)
+        VALUES(SYSDATE, log_type, log_custid);
+END;
