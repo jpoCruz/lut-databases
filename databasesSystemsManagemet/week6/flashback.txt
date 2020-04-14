@@ -7,3 +7,10 @@ flashback table accounts to before drop;
 flashback table TXNM_table to before drop;
 
 select * from recyclebin -- check if the recyclebin is empty
+
+
+select * from CUSM;
+
+select * from accounts;
+
+select * from TXNM_table;
