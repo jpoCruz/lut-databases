@@ -10,3 +10,10 @@ alter table CUSM enable row movement;
 alter table accounts enable row movement;
 
 alter table TXNM_table enable row movement;
+
+
+alter table CUSM nocompress;
+
+alter table accounts nocompress;
+
+alter table TXNM_table nocompress;
