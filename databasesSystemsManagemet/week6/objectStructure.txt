@@ -5,3 +5,8 @@ SELECT * FROM user_sequences;
 SELECT * FROM user_constraints
 WHERE owner = 'SQL_SAZQLQLYPEUAUIEAGCQVVMFAI'
 AND CONSTRAINT_NAME = 'SYS_C00673822';
+
+--to detect errors, you do this:
+SELECT * FROM user_constraints
+WHERE owner = 'SQL_SAZQLQLYPEUAUIEAGCQVVMFAI'
+AND CONSTRAINT_NAME = 'SYS_C00673822'; --where CONSTRAINT_NAME is equal to the code of the error you'd like to identify
