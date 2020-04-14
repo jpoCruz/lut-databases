@@ -1,0 +1,7 @@
+--tables need to be dropped in this order because of primary and secondary keys
+
+DROP TABLE TXNM_table;
+
+DROP TABLE accounts;
+
+DROP TABLE CUSM;
