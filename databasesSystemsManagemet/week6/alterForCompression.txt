@@ -3,3 +3,10 @@ alter table CUSM compress for oltp;
 alter table accounts compress for oltp;
 
 alter table TXNM_table compress for oltp;
+
+
+alter table CUSM enable row movement;
+
+alter table accounts enable row movement;
+
+alter table TXNM_table enable row movement;
