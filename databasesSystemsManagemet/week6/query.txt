@@ -86,21 +86,3 @@ end;
 
 
 ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-DD-MM';
-
-INSERT INTO CUSM (fullName, address, age, sex, phone, email, status)
-VALUES ('Joao Cruz', 'Ruskonlahdenkatu 13-15', 20, 'm', '041 727 9016', 'joao.cruz@student.lut.fi', 'Active');
-
-INSERT INTO CUSM (fullName, address, age, sex, phone, email, status)
-VALUES ('John Doe', 'City Center', 46, 'm', '041 727 6543', 'john.doe@gmail.com', 'Active');
-
-INSERT INTO CUSM (fullName, address, age, sex, phone, email, status)
-VALUES ('Sarah Smith', 'Karankokatu', 92, 'f', '041 727 1344', 'sarah.smith@gmail.com', 'Active');
-
-INSERT INTO accounts(accountUser, interestRate, openingDate, status, balance, accountType)
-VALUES (1, 5, '2015-05-01', 'Active', 500, 'NOD');
-
-INSERT INTO accounts(accountUser, interestRate, openingDate, status, balance, accountType)
-VALUES (2, 10, '2002-01-04', 'Active', 5200, 'OD');
-
-INSERT INTO accounts(accountUser, interestRate, openingDate, status, balance, accountType)
-VALUES (3, 2, '1992-15-10', 'Active', 23000, 'NOD');
