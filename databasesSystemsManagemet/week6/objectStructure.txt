@@ -1,0 +1,7 @@
+SELECT * FROM user_tables;
+SELECT * FROM user_objects;
+SELECT * FROM user_views;
+SELECT * FROM user_sequences;
+SELECT * FROM user_constraints
+WHERE owner = 'SQL_SAZQLQLYPEUAUIEAGCQVVMFAI'
+AND CONSTRAINT_NAME = 'SYS_C00673822';
