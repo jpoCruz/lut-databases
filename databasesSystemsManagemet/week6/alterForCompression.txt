@@ -1,0 +1,5 @@
+alter table CUSM compress for oltp;
+
+alter table accounts compress for oltp;
+
+alter table TXNM_table compress for oltp;
